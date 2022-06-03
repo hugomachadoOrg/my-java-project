@@ -1,4 +1,4 @@
 # my-java-project
 Dummy java project
 
-test cenas aaa
+test cenas aaa bb
