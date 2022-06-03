@@ -33,4 +33,3 @@ jobs:
             commentPR "Thanks for the pull request! We're a small team and it's helpful to have context around community submissions in order to review them appropriately. Our automation has closed this pull request since it does not have an adequate description. Please edit the body of this pull request to describe what this does, then reopen it."
             exit 0
           fi
-          exit 0
