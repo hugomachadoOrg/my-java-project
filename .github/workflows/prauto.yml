@@ -24,3 +24,20 @@ jobs:
           PR_AUTHOR_TYPE: ${{ github.event.pull_request.user.type }}
         run: | 
           gh pr comment $PRNUM -b "This is a comment in the Pull Request"
+          
+          echo
+          echo $GH_REPO
+          echo
+          echo $GH_TOKEN
+          echo
+          echo $PRID
+           echo
+          echo $PRBODY
+           echo
+          echo $PRNUM
+           echo
+          echo $PRHEAD
+           echo
+          echo $PRAUTHOR
+           echo
+          echo $PR_AUTHOR_TYPE
