@@ -15,11 +15,12 @@ jobs:
       - name: lint pr
         env:
           GH_REPO: ${{ github.repository }}
-          GH_TOKEN: ${{ secrets.AUTOMATION_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
           PRID: ${{ github.event.pull_request.node_id }}
           PRBODY: ${{ github.event.pull_request.body }}
           PRNUM: ${{ github.event.pull_request.number }}
           PRHEAD: ${{ github.event.pull_request.head.label }}
           PRAUTHOR: ${{ github.event.pull_request.user.login }}
           PR_AUTHOR_TYPE: ${{ github.event.pull_request.user.type }}
-        run: gh pr comment $PRNUM -b "This is a comment in the Pull Request"
+        run: | 
+          gh pr comment $PRNUM -b "This is a comment in the Pull Request"
