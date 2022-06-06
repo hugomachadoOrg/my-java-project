@@ -36,4 +36,4 @@ jobs:
           
           gh pr edit $PRNUM --add-assignee $PRAUTHOR
           
-          gh pr merge $PRNUM
+          gh pr merge $PRNUM -m
