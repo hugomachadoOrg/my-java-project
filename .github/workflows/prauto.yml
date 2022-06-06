@@ -25,19 +25,11 @@ jobs:
         run: | 
           gh pr comment $PRNUM -b "This is a comment in the Pull Request"
           
-          echo
-          echo $GH_REPO
-          echo
-          echo $GH_TOKEN
-          echo
-          echo $PRID
-           echo
-          echo $PRBODY
-           echo
-          echo $PRNUM
-           echo
-          echo $PRHEAD
-           echo
-          echo $PRAUTHOR
-           echo
-          echo $PR_AUTHOR_TYPE
+          echo REPO: $GH_REPO
+          echo TOKEN: $GH_TOKEN
+          echo PR ID: $PRID
+          echo PR BODY: $PRBODY
+          echo PR NUM: $PRNUM
+          echo PR HEAD: $PRHEAD
+          echo AUTHOR: $PRAUTHOR
+          echo AUTHOR TYPE: $PR_AUTHOR_TYPE
