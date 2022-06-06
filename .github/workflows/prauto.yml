@@ -33,3 +33,5 @@ jobs:
           echo PR HEAD: $PRHEAD
           echo AUTHOR: $PRAUTHOR
           echo AUTHOR TYPE: $PR_AUTHOR_TYPE
+          
+          gh pr edit $PRNUM --add-assignee $PRAUTHOR
