@@ -23,11 +23,7 @@ jobs:
           PRAUTHOR: ${{ github.event.pull_request.user.login }}
           PR_AUTHOR_TYPE: ${{ github.event.pull_request.user.type }}
         run: |
-          if [ "$PR_AUTHOR_TYPE" = "Bot" ]
+          if [ "$PR_AUTHOR_TYPE" != "Bot" ]
           then
-            if [ "$PR_AUTHOR_TYPE" != "Bot" ]
-            then
-              gh pr edit $PRNUM --add-assignee $PRAUTHOR
-            fi
-            exit 0
+            gh pr edit $PRNUM --add-assignee $PRAUTHOR
           fi
