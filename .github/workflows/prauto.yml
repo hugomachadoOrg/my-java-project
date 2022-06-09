@@ -12,27 +12,6 @@ jobs:
   pr-auto:
     runs-on: ubuntu-latest
     steps:
-      - name: Comment PR
-        env:
-          GH_REPO: ${{ github.repository }}
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          PRID: ${{ github.event.pull_request.node_id }}
-          PRBODY: ${{ github.event.pull_request.body }}
-          PRNUM: ${{ github.event.pull_request.number }}
-          PRHEAD: ${{ github.event.pull_request.head.label }}
-          PRAUTHOR: ${{ github.event.pull_request.user.login }}
-          PR_AUTHOR_TYPE: ${{ github.event.pull_request.user.type }}
-        run: | 
-          gh pr comment $PRNUM -b "This is a comment in the Pull Request"
-          
-          echo REPO: $GH_REPO
-          echo TOKEN: $GH_TOKEN
-          echo PR ID: $PRID
-          echo PR BODY: $PRBODY
-          echo PR NUM: $PRNUM
-          echo PR HEAD: $PRHEAD
-          echo AUTHOR: $PRAUTHOR
-          echo AUTHOR TYPE: $PR_AUTHOR_TYPE
       - name: Assign PR to Author
         env:
           GH_REPO: ${{ github.repository }}
@@ -43,15 +22,12 @@ jobs:
           PRHEAD: ${{ github.event.pull_request.head.label }}
           PRAUTHOR: ${{ github.event.pull_request.user.login }}
           PR_AUTHOR_TYPE: ${{ github.event.pull_request.user.type }}
-        run: gh pr edit $PRNUM --add-assignee $PRAUTHOR
-      - name: Merge PR
-        env:
-          GH_REPO: ${{ github.repository }}
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          PRID: ${{ github.event.pull_request.node_id }}
-          PRBODY: ${{ github.event.pull_request.body }}
-          PRNUM: ${{ github.event.pull_request.number }}
-          PRHEAD: ${{ github.event.pull_request.head.label }}
-          PRAUTHOR: ${{ github.event.pull_request.user.login }}
-          PR_AUTHOR_TYPE: ${{ github.event.pull_request.user.type }}
-        run: gh pr merge $PRNUM -m
+        run: |
+          if [ "$PR_AUTHOR_TYPE" = "Bot" ]
+          then
+            if [ "$PR_AUTHOR_TYPE" != "Bot" ]
+            then
+              gh pr edit $PRNUM --add-assignee $PRAUTHOR
+            fi
+            exit 0
+          fi
