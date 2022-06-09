@@ -27,7 +27,7 @@ jobs:
           then
             gh pr edit $PRNUM --add-assignee $PRAUTHOR
           fi
-  auto-merge:
+  dependabot-auto-merge:
     runs-on: ubuntu-latest
     steps:
       - uses: ahmadnassri/action-dependabot-auto-merge@v2
