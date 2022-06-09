@@ -12,7 +12,7 @@ jobs:
   pr-auto:
     runs-on: ubuntu-latest
     steps:
-      - name: lint pr
+      - name: Comment PR
         env:
           GH_REPO: ${{ github.repository }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -33,7 +33,25 @@ jobs:
           echo PR HEAD: $PRHEAD
           echo AUTHOR: $PRAUTHOR
           echo AUTHOR TYPE: $PR_AUTHOR_TYPE
-          
-          gh pr edit $PRNUM --add-assignee $PRAUTHOR
-          
-          gh pr merge $PRNUM -m
+      - name: Assign PR to Author
+        env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          PRID: ${{ github.event.pull_request.node_id }}
+          PRBODY: ${{ github.event.pull_request.body }}
+          PRNUM: ${{ github.event.pull_request.number }}
+          PRHEAD: ${{ github.event.pull_request.head.label }}
+          PRAUTHOR: ${{ github.event.pull_request.user.login }}
+          PR_AUTHOR_TYPE: ${{ github.event.pull_request.user.type }}
+        run: gh pr edit $PRNUM --add-assignee $PRAUTHOR
+      - name: Merge PR
+        env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          PRID: ${{ github.event.pull_request.node_id }}
+          PRBODY: ${{ github.event.pull_request.body }}
+          PRNUM: ${{ github.event.pull_request.number }}
+          PRHEAD: ${{ github.event.pull_request.head.label }}
+          PRAUTHOR: ${{ github.event.pull_request.user.login }}
+          PR_AUTHOR_TYPE: ${{ github.event.pull_request.user.type }}
+        run: gh pr merge $PRNUM -m
