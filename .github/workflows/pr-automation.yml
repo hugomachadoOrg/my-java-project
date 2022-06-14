@@ -11,11 +11,14 @@ permissions:
 jobs:
   pr-auto:
     runs-on: ubuntu-latest
-    if: ${{ github.actor != 'dependabot[bot]' }}
     steps:
       - name: Assign PR to Author
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           PRAUTHOR: ${{ github.event.pull_request.user.login }}
           PR_AUTHOR_TYPE: ${{ github.event.pull_request.user.type }}
-        run: gh pr edit $PRNUM --add-assignee $PRAUTHOR
+        run: |
+          if [ "$PR_AUTHOR_TYPE" != "Bot" ]
+          then
+            gh pr edit $PRNUM --add-assignee $PRAUTHOR
+          fi
