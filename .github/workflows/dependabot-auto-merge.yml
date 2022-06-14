@@ -1,18 +1,21 @@
-name: PR Automation
-on:
-  pull_request_target:
-    types: [ready_for_review, opened, reopened]
+name: Dependabot auto-merge
+on: pull_request
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
-  dependabot-auto-merge:
-    env:
-      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  dependabot:
     runs-on: ubuntu-latest
+    if: ${{ github.actor == 'dependabot[bot]' }}
     steps:
-      - uses: tjenkinson/gh-action-auto-merge-dependency-updates@v1
+      - name: Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v1.1.1
         with:
-          allowed-actors: dependabot-preview[bot], dependabot[bot]
+          github-token: "${{ secrets.GH_TOKEN }}"
+      - name: Enable auto-merge for Dependabot PRs
+        run: gh pr merge --auto --merge "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GH_TOKEN}}
