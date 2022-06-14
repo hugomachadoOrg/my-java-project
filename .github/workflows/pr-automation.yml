@@ -15,4 +15,4 @@ jobs:
       - name: Assign PR to Author
       - uses: kentaro-m/auto-assign-action@v1.2.1
         with:
-          addAssignees: author
+          addAssignees: 'author'
