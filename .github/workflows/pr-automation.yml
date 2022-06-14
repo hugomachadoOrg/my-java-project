@@ -11,7 +11,7 @@ permissions:
 jobs:
   pr-auto:
     runs-on: ubuntu-latest
-    if: $PR_AUTHOR_TYPE != "Bot"
+    if: ${{ github.event.pull_request.user.type != 'Bot' }}
     steps:
       - name: Assign PR to Author
         env:
