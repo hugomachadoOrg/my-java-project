@@ -9,7 +9,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  pr-auto:
+  add-assignee:
     runs-on: ubuntu-latest
     if: ${{ github.event.pull_request.user.type != 'Bot' }}
     steps:
@@ -20,7 +20,7 @@ jobs:
           PRNUM: ${{ github.event.pull_request.number }}
           PRAUTHOR: ${{ github.event.pull_request.user.login }}
         run: gh pr edit $PRNUM --add-assignee $PRAUTHOR
-  pr-add-reviewer:
+  add-reviewer:
     runs-on: ubuntu-latest
     if: ${{ github.event.pull_request.user.type != 'Bot' }}
     steps:
