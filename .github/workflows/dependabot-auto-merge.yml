@@ -7,7 +7,7 @@ permissions:
 jobs:
   dependabot-merge:
     runs-on: ubuntu-latest
-    if: ${{ github.actor == 'dependabot[bot]' }}
+    if: ${{ github.actor == 'dependabot[bott]' }}
     steps:
       - name: Dependabot metadata
         id: metadata
