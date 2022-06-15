@@ -13,12 +13,17 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.pull_request.user.type != 'Bot' }}
     steps:
-      - name: Assign PR to Author and request reviewers
+      - name: Assign PR to Author
         env:
           GH_REPO: ${{ github.repository }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           PRNUM: ${{ github.event.pull_request.number }}
           PRAUTHOR: ${{ github.event.pull_request.user.login }}
-        run: |
-        gh pr edit $PRNUM --add-assignee $PRAUTHOR
-        gh pr edit $PRNUM --add-reviewer Checkmarx/ast-galactica-team
+        run: gh pr edit $PRNUM --add-assignee $PRAUTHOR
+       - name: Request reviewers
+         env:
+           GH_REPO: ${{ github.repository }}
+           GH_TOKEN: ${{ secrets.GH_TOKEN }}
+           PRNUM: ${{ github.event.pull_request.number }}
+           PRAUTHOR: ${{ github.event.pull_request.user.login }}
+         run: gh pr edit $PRNUM --add-reviewer Checkmarx/ast-galactica-team
