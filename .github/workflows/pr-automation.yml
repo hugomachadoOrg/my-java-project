@@ -18,3 +18,12 @@ jobs:
           GH_REPO: ${{ github.repository }}
           PRNUM: ${{ github.event.pull_request.number }}
         run: gh pr edit $PRNUM --add-assignee $PRAUTHOR
+  if_error_or_failure:
+    runs-on: ubuntu-latest
+    if: >-
+      (github.event.state == 'error' || github.event.state == 'failure')
+    steps:
+      - env:
+          DESCRIPTION: ${{ github.event.description }}
+        run: |
+          echo The status is error or failed: $DESCRIPTION
